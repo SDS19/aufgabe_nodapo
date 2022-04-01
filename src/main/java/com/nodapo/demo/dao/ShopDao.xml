@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nodapo.demo.dao.ShopDao">
+
+    <insert id="insert">
+        INSERT INTO t_shop(id,name,turnover) VALUES(#{id},#{name},#{turnover})
+    </insert>
+
+    <insert id="addBook">
+        INSERT INTO t_stock VALUES(#{id},#{shopId},#{shopName},#{bookId},#{bookTitle},#{stock},#{soldout},#{price})
+    </insert>
+
+    <select id="getStock" resultType="com.nodapo.demo.entity.Stock">
+        SELECT * FROM t_stock WHERE shopId=#{shopId} AND bookId=#{bookId}
+    </select>
+
+    <select id="getStockbyBook" resultType="com.nodapo.demo.entity.Stock">
+        SELECT * FROM t_stock WHERE bookId = (
+            SELECT id FROM t_book
+            <where>
+                <if test="title!=null and title!=''">
+                    title LIKE CONCAT('%',#{title},'%')
+                </if>
+                <if test="genre!=null and genre!=''">
+                    genre LIKE CONCAT('%',#{genre},'%')
+                </if>
+                <if test="ISBN!=null and ISBN!=''">
+                    ISBN LIKE CONCAT('%',#{ISBN},'%')
+                </if>
+            </where>
+        )
+    </select>
+
+    <select id="filter" resultType="com.nodapo.demo.entity.Stock">
+        SELECT * FROM t_stock WHERE bookId IN (
+        SELECT id FROM t_book
+            <where>
+                <if test="genre!=null and genre!=''">
+                    genre LIKE CONCAT('%',#{genre},'%')
+                </if>
+            </where>
+        )
+    </select>
+
+    <select id="getShop" resultType="com.nodapo.demo.entity.Shop">
+        SELECT * FROM t_shop WHERE id=#{id}
+    </select>
+
+    <update id="updateStock">
+        UPDATE t_stock set stock=#{stock},soldout=#{soldout} WHERE id=#{id}
+    </update>
+
+    <update id="updateShop">
+        UPDATE t_shop SET turnover=#{turnover} WHERE id=#{id}
+    </update>
+
+    <insert id="addOrder">
+        INSERT INTO t_order VALUES(#{id},#{shopId},#{customerId},#{customerName},#{bookId},#{bookTitle},#{count},#{price})
+    </insert>
+
+</mapper>

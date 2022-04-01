@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nodapo.demo.dao.BookDao">
+
+    <select id="getISBN" resultType="int">
+        SELECT COUNT(*) FROM t_isbn WHERE ISBN=#{ISBN}
+    </select>
+
+    <insert id="insert">
+        INSERT INTO t_book VALUES(#{id},#{title},#{price},#{pageCount},#{genre},#{ISBN})
+    </insert>
+
+    <select id="getBookByISBN" resultType="com.nodapo.demo.entity.Book">
+        SELECT * FROM t_book WHERE ISBN=#{ISBN}
+    </select>
+
+
+</mapper>
