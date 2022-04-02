@@ -82,7 +82,7 @@ public class BookServiceImpl implements BookService{
         shop.setTurnover(shop.getTurnover().add(totalPrice));
         if (shopDao.updateShop(shop)!=1) throw new DaoException("Update turnover failed!");
 
-        //create order (t_order)  update stock (t_stock)
+        //create order (t_order) and update stock (t_stock)
         for (Order order:orders) {
             order.setId(UUIDUtil.getUUID());
             if (shopDao.addOrder(order)!=1) throw new DaoException("Create order failed!");
