@@ -11,7 +11,7 @@ public class Book {
     private String title;
     private Integer pageCount;//Seitenzahl
     private String genre;//Adventure, Biography, Comic, Fantasy
-    private String ISBN;//nicht einzig für unveränderte Nachdrucke oder Auflagen
+    private String ISBN;
     private BigDecimal price;//Listenpreis
 
     @Override
