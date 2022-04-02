@@ -6,6 +6,7 @@ Spring Boot + MyBatis
 
 ## Project structure
 
+- `test` package contains the Unit Test class `DemoApplicationTests`.
 - `entity` package contains the entity class.
 - `dao` package contains the dao interface and mybatis mapper file.
 - `service` package contains the service interface and implementation class.
